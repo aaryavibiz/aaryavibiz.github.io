@@ -193,7 +193,7 @@
 
           <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
-              <span data-purecounter-start="0" data-purecounter-end="30" data-purecounter-duration="2"
+              <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="2"
                 class="purecounter"></span>
               <p>Years of experience</p>
             </div>
@@ -1051,9 +1051,31 @@
           <div class="col-lg-4 col-md-6 footer-newsletter">
             <h4>Join Our Newsletter</h4>
             <p>Subscribe for the latest updates and Business growth ideas.</p>
-            <form action="#" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+            <form name="submit-to-google-sheet">
+              <input type="email" name="Email"><input type="submit" value="Subscribe"><br>
+              <span id="success"></span>
             </form>
+            <script>
+              const scriptURL = 'https://script.google.com/macros/s/AKfycbzuc3IRSspgNC8kBE9QbcQLa7UAhm_7sMXbW0vERYtF84jtbznIRDylpbbJ1DqJA7j4/exec'
+              const form = document.forms['submit-to-google-sheet']
+              const success = document.getElementById('success');
+              form.addEventListener('submit', e => {
+                e.preventDefault()
+                fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                  .then(response => {
+                    success.innerHTML = "Thank you for subscribing AARYAVI";
+
+                    setTimeout(function () {
+                      success.innerHTML = "";
+
+                    }, 5000)
+
+                    form.reset();
+
+                  })
+                  .catch(error => console.error('Error!', error.message))
+              })
+            </script>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
